@@ -74,12 +74,22 @@ WSGI_APPLICATION = 'airline_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+
+       #  NEW MYSQL CONFIGURATION
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'my_flight_db',        # The name of the database you created in Step 2
+        'USER': 'root',                # Your MySQL username (default is often root)
+        'PASSWORD': '12345',   # Your actual MySQL account password
+        'HOST': '127.0.0.1',           # Use 'localhost' or '127.0.0.1' for local dev
+        'PORT': '3306',                # Standard default MySQL port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+    
 
 
 # Password validation

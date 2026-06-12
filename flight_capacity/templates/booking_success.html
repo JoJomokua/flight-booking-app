@@ -21,6 +21,10 @@
             text-decoration: none;
             button-align: right;
           }
+          .cancel-btn{
+            color: red;
+            font-weight: bold;
+          }
         </style>
     </head>
     <body>
@@ -29,7 +33,7 @@ green;">Booking Confirmed! 🎉</h1>
 <p>Thank you <strong>{{ request.user.username }}</strong>! for booking flight  <strong>{{ flight.flight_number }}</strong> for <strong>{{ flight.Date }}</strong>.</p>
 <p>Remaining seats on this flight:<strong> {{ flight.Capacity }}</strong></p>
 <a href="{% url 'flight_capacity' %}" class = "button">Back to Available Flights</a><br><br>
-<a href="{%url 'cancel' flight.id %}" style="color: red; font-weight: bold;">Cancel Booking</a><br><br>
+<a href="{%url 'cancel' flight.id %}" class= "cancel-btn">Cancel Booking</a><br><br>
 <a href="{% url 'home' %}" class = "button">Home</a>
 <a href="{% url 'dashboard' %}" class="button"> Dashboard</a>      
         
