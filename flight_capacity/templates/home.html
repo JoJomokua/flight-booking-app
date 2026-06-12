@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+           .hero-image{
+                display: block;
+                height: 500px;
+                width: 75%;
+                border-radius: 12px;    
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+                margin: auto;       
+            }
+
+             .button{
+            background-color: green;
+            color: white;
+            padding: 5px 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            button-align: right;
+          }
+
+          p{
+            text-align: center;
+          }
+        </style>
+    </head>
+    <body>
+       <h1 style="color:green;text-align:center;">Fly Safe Airlines✈️</h1>
+       <img src="{% static 'flight_capacity/airplane.jpg' %}" alt="Airplane" class="hero-image">
+       <p><I>Book your flight with us and experience the best service in the skies!</I><br><br>
+       <a href="{% url 'flight_capacity' %}" class = "button">Book a Flight<br></a></p>
+
+        <script src="" async defer></script>
+    </body>
+</html> 
+

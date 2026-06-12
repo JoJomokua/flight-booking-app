@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!-<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+         /* 🧭 TOP AUTHENTICATION NAVBAR */
+        .navbar {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid green;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .navbar-brand {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .navbar-user-text {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .nav-link {
+            color: green;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .logout-form {
+            display: inline;
+            margin-left: 15px;
+        }
+
+        .btn-logout-link {
+            background: none;
+            border: none;
+            color: #cc0000;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
+        }
+
+        .btn-logout-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-signup {
+            background-color: green;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        /* 🟢 YOUR ORIGINAL CARD PAGE LAYOUT STYLES */
+        .page-title {
+            text-align: center;
+            color: green;
+            font-style: italic;
+            font-size: 36px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .cards-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .flight-card {
+            background-color: #daf5e7; /* Your mint green background color */
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #004d26; /* Dark green font color */
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .flight-card p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        /* Your Button Styling */
+        .button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px; 
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block; 
+            margin-top: 15px;
+            font-style: normal; /* Keeps button text clean */
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: darkgreen;
+        }
+
+        .sold-out {
+            color: red;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        </style>
+    </head>
+    <body>
+      <div class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">✈️ Portal</a>
+        <div>
+            {% if user.is_authenticated %}
+                <span class="navbar-user-text">Welcome, <strong>{{ user.username }}</strong>!</span>
+                <a href="{% url 'dashboard' %}" class="nav-link">My Dashboard</a>
+                
+                <form action="{% url 'logout' %}" method="POST" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout-link">Log Out</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-link">Log In</a>
+                <a href="{% url 'signup' %}" class="btn-signup">Create Account</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <h1 class="page-title">Available Flights</h1>
+
+    <div class="cards-container">
+        {% for flight in flights %}
+            <div class="flight-card">
+                <p><strong>Flight number: {{ flight.flight_number }}</strong></p>
+                <p>Date: {{ flight.Date }}</p>
+                <p>Capacity: {{ flight.Capacity }}</p>
+                
+                {% if flight.Capacity > 0 %}
+                    <a href="{% url 'book_flight' flight.id %}" class="button">Book Now</a>
+                {% else %}
+                    <span class="sold-out">❌ Sold Out</span>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="flight-card" style="text-align: center;">
+                <p>No flights are scheduled at this time.</p>
+            </div>
+        {% endfor %}
+    </div>
+        
+        
+        <script src="" async defer></script>
+    </body>
+</html>

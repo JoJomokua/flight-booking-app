@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <style>  
+       body {
+                font-family: Arial, sans-serif;
+                background-color: #ffffff;
+                margin: 0;
+                padding: 40px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                box-sizing: border-box;
+            }
+
+            /* 📦 THE MAIN WRAPPER CONTAINER */
+            .booking-page-container {
+                width: 100%;
+                max-width: 420px; /* Kept uniform to align everything precisely */
+                margin: 0 auto;
+                padding: 0 20px;
+                box-sizing: border-box;
+            }
+
+            /* 📦 THE MAIN CARD CONTAINER */
+            .form-card {
+                width: 100%;
+                padding: 30px 0;
+                box-sizing: border-box;
+                background-color: #ffffff;
+                text-align: left;
+            }
+
+            /* 🟢 MAIN HEADER */
+            .form-title {
+                color: green;
+                font-size: 32px;
+                font-weight: bold;
+                text-align: center;
+                margin-top: 0;
+                margin-bottom: 35px;
+            }
+
+            /* 📋 INPUT FIELDS GRIDS */
+            .input-group {
+                margin-bottom: 22px;
+            }
+
+            label {
+                display: block;
+                font-weight: bold;
+                color: #333333;
+                margin-bottom: 8px;
+                font-size: 16px;
+            }
+
+            /* Notice: fixed class identifier selection for Django-rendered inputs if needed, 
+               but targeting standard types here */
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            form input {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 16px;
+                border: 1px solid green; 
+                border-radius: 6px;
+                background-color: #ffffff;
+                box-sizing: border-box;
+                outline: none;
+                transition: background-color 0.2s, box-shadow 0.2s;
+            }
+
+            input:focus {
+                background-color: #edf4fe;
+                box-shadow: 0 0 5px rgba(0, 128, 0, 0.2);
+            }
+
+            /* 🟢 SOLID BUTTON */
+            .btn-submit {
+                width: 100%;
+                background-color: green;
+                color: white;
+                padding: 14px;
+                font-size: 18px;
+                font-weight: bold;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                margin-top: 15px;
+                transition: background-color 0.2s;
+            }
+
+            .btn-submit:hover {
+                background-color: darkgreen;
+            }
+
+            /* 📂 BOTTOM BUTTONS CONTAINER */
+            .button-container {
+                display: flex;
+                flex-direction: column; 
+                align-items: center;    
+                gap: 15px; /* Replaced custom breaks with clean CSS element gaps */
+                width: 100%;            
+                margin-top: 20px;
+            }
+         
+            /* 🔗 LINK BUTTONS ALTERED TO MATCH MAIN BUTTON SIGNATURE */
+            .button-link {
+                display: block;
+                width: 100%;            
+                box-sizing: border-box; 
+                background-color: green;
+                color: white;
+                text-align: center;
+                text-decoration: none;  
+                font-weight: bold;
+                font-size: 18px; /* Matched to main submission action font sizing */
+                padding: 14px;  /* Matched padding exactly with .btn-submit */
+                border-radius: 6px;     
+                transition: background-color 0.2s ease;
+            }
+
+            .button-link:hover {
+                background-color: darkgreen; 
+            }
+    </style>
+    <body>
+        <div class="booking-page-container">
+        <div class="form-card">
+        <h1 class="form-title">Book Flight: {{ flight.flight_number }}</h1>
+<p>Departure Date: {{ flight.Date }}</p>
+
+<form method="POST" class = "form">
+    {% csrf_token %} 
+
+    {% if form.errors %}
+        <div  class = "error">
+            <strong>Please fix the errors below:</strong>
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <div class="input group">
+        <label>Name:</label><br>
+        {{ form.name }}
+        <span>{{ form.name.errors }}</span>
+          </div><br>
+
+    <div class="input group">
+        <label>Email:</label><br>
+        {{ form.email }}
+        <span>{{ form.email.errors }}</span>
+        </div><br>
+
+    <div class="input group">
+        <label>Phone Number:</label><br>
+        {{ form.phone_number }}
+        <span>{{ form.phone_number.errors }}</span>
+        </div><br>
+ 
+    <button type="submit" class = "btn-submit"id="submit-btn" onclick="disableAndSubmit(event)">Confirm My Ticket</button>
+</form>
+</div>
+
+<div class= "button-container">
+<a href="{% url 'flight_capacity' %}" class = "button-link">Back to Available Flights</a><br><br><br>
+<a href="{% url 'home' %}" class = "button-link">Home</a>
+</div>
+</div>
+        <script src="" async defer>
+            
+function disableAndSubmit(event) {
+    // 1. Find the button element
+    const btn = document.getElementById('submit-btn');
+    const form = btn.closest('form');
+
+    # 
+
+    // 2. Double check if the HTML5 form validation passed 
+    // (We don't want to freeze the button if the user forgot to type their name!)
+    if (form.checkValidity()) {
+        // 3. Temporarily change the style so the user knows it's processing
+        btn.disabled = true;
+        btn.style.backgroundColor = '#cccccc';
+        btn.style.cursor = 'not-allowed';
+        btn.innerText = 'Processing your booking...';
+
+        // 4. Forcefully submit the form programmatically
+        form.submit();
+    }
+}
+
+        </script>
+    </body>
+</html>

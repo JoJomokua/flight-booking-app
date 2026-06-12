@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            h1{
+                color: red;
+            }
+
+            .button{
+            background-color: green;
+            color: white;
+            padding: 5px 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            button-align: right;
+          }
+        </style>
+    </head>
+    <body>
+        <!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Failed</title>
+</head>
+<body>
+    <h1>Booking Unsuccessful</h1>
+    <p>{{ error }}</p>
+    <p>Flight number <strong>{{ flight.flight_number }}</strong> has no remaining seats.</p>
+    <hr>
+    <a href="{% url 'flight_capacity' %}" class = "button">Back to Available Flights</a><br><br>
+    <a href="{% url 'home' %}" class = "button">Home</a>
+    <a href="{% url 'dashboard' %}" class="button">Dashboard</a>
+</body>
+</html>
+        <script src="" async defer></script>
+    </body>
+</html>
