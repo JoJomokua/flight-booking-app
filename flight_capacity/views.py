@@ -9,13 +9,13 @@ from django.contrib.auth.decorators import login_required
 from .models import FlightCapacity, Booking
 from .forms import BookingForm
 
-# 🏡 1. HOME VIEW
+# 1. HOME VIEW
 def home(request):
     """Renders the central landing page for the application."""
     return render(request, 'home.html')
 
 
-# ✈️ 2. AVAILABLE FLIGHTS LIST VIEW
+#  2. AVAILABLE FLIGHTS LIST VIEW
 def flight_capacity(request):
     "Fetches all flights from the database and renders them on a public list."""
     flights = FlightCapacity.objects.all()
@@ -39,8 +39,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-# 📊 4. SECURE USER DASHBOARD VIEW
-@login_required # 🔐 Only allows logged-in members to view this page
+#  4. SECURE USER DASHBOARD VIEW
+@login_required # Only allows logged-in members to view this page
 def dashboard(request):
     """Fetches and displays bookings belonging ONLY to the logged-in user."""
     # Relational Database Filter: Matches the 'user' column to the active user's ID
@@ -48,8 +48,8 @@ def dashboard(request):
     return render(request, 'dashboard.html', {'bookings': user_bookings})
 
 
-# 🎫 5. SECURE FLIGHT BOOKING VIEW
-@login_required # 🔐 Prevents anonymous guest checkouts
+# 5. SECURE FLIGHT BOOKING VIEW
+@login_required # Prevents anonymous guest checkouts
 def book_flight(request, flight_id):
     """Validates data, verifies seat capacity, and links bookings to accounts."""
     flight = get_object_or_404(FlightCapacity, pk=flight_id)
@@ -67,7 +67,7 @@ def book_flight(request, flight_id):
             if flight.Capacity > 0:
                 # Create the transaction record in the database
                 Booking.objects.create(
-                    user=request.user,  # 🛡️ Tie this ticket to this specific logged-in user!
+                    user=request.user,  # Tie this ticket to this specific logged-in user!
                     passenger_name=name,
                     passenger_email=email,
                     passenger_phone_number=phone_number,
@@ -82,7 +82,7 @@ def book_flight(request, flight_id):
             else:
                 return render(request, 'booking_failed.html', {'flight': flight, 'error': 'No remaining seats.'})
     else:
-        # 💡 SMART UX: Auto-fill the form with their account details so they don't have to re-type them!
+        # SMART UX: Auto-fill the form with their account details so they don't have to re-type them!
         form = BookingForm(initial={
             'name': request.user.get_full_name() or request.user.username,
             'email': request.user.email
@@ -92,7 +92,7 @@ def book_flight(request, flight_id):
     return render(request, 'book_flight.html', {'flight': flight, 'form': form})
 
 
-# ❌ 6. CANCEL BOOKING VIEW
+#  6. CANCEL BOOKING VIEW
 def cancel_booking(request, flight_id):
     """Handles restoring flight inventory when a seat reservation is canceled."""
     flight = get_object_or_404(FlightCapacity, pk=flight_id)

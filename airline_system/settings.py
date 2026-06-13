@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_flight_db',        # The name of the database you created in Step 2
-        'USER': 'root',                # Your MySQL username (default is often root)
-        'PASSWORD': '12345',   # Your actual MySQL account password
+        'USER': 'root',                #  MySQL username (default is often root)
+        'PASSWORD': '12345',           # actual MySQL account password
         'HOST': '127.0.0.1',           # Use 'localhost' or '127.0.0.1' for local dev
         'PORT': '3306',                # Standard default MySQL port
         'OPTIONS': {
