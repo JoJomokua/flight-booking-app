@@ -11,7 +11,7 @@ class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
     passenger_name = models.CharField(max_length=15)
     passenger_email = models.EmailField()
-    passenger_phone_number = models.IntegerField()
+    passenger_phone_number = models.CharField(max_length=14)
 
 #Links the booking directly to a specific flight
     flight = models.ForeignKey(FlightCapacity, on_delete=models.CASCADE, related_name='bookings')

@@ -26,7 +26,7 @@
         .navbar-brand {
             font-size: 18px;
             font-weight: bold;
-            color: #333;
+            color: green;
             text-decoration: none;
         }
 
@@ -100,7 +100,7 @@
             padding: 25px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            color: #004d26; /* Dark green font color */
+            color: #004d26; 
             font-style: italic;
             line-height: 1.6;
         }
@@ -110,7 +110,7 @@
             font-size: 18px;
         }
 
-        /* Your Button Styling */
+        /*  Button Styling */
         .button {
             background-color: green;
             color: white;
@@ -140,7 +140,7 @@
     </head>
     <body>
       <div class="navbar">
-        <a href="{% url 'home' %}" class="navbar-brand">✈️ Portal</a>
+        <a href="{% url 'home' %}" class="navbar-brand">✈️ Home</a>
         <div>
             {% if user.is_authenticated %}
                 <span class="navbar-user-text">Welcome, <strong>{{ user.username }}</strong>!</span>

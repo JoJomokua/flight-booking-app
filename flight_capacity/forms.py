@@ -20,9 +20,9 @@ class BookingForm(forms.Form):
             })
     )
     phone_number = forms.CharField(
-        max_length=13, 
+        max_length=15, 
         widget=forms.TextInput(attrs={
-            'placeholder': 'e.g. +2544567890',
+            'placeholder': 'e.g. 0745678901',
             'pattern': r'^\+?[0-9]{7,14}$',
             'title': 'Please enter a valid phone number (7 to 14 digits, optional + prefix).'
             })
